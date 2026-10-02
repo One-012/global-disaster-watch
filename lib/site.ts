@@ -4,20 +4,20 @@ export const site = {
   tagline: "Extreme weather. Real-world impact.",
 
   description:
-    "Explore extreme weather through documentaries and reports from Extreme Earth News.",
+    "Explore extreme weather through documentaries and reports from Global Disaster Watch.",
 
-  youtubeName: "Extreme Earth News",
+  youtubeName: "Global Disaster Watch",
 
-  youtubeChannelId: "UCp4hzFJxYmA-JoJjSC2tfJA",
+  youtubeChannelId: "UCqmF4ZZG766WYtFK614swaA",
 
   youtubeUrl:
-    "https://www.youtube.com/channel/UCp4hzFJxYmA-JoJjSC2tfJA",
+    "https://www.youtube.com/channel/UCqmF4ZZG766WYtFK614swaA",
 
   youtubeVideosUrl:
-    "https://www.youtube.com/channel/UCp4hzFJxYmA-JoJjSC2tfJA/videos",
+    "https://www.youtube.com/channel/UCqmF4ZZG766WYtFK614swaA/videos",
 
   youtubeSubscribeUrl:
-    "https://www.youtube.com/channel/UCp4hzFJxYmA-JoJjSC2tfJA?sub_confirmation=1",
+    "https://www.youtube.com/channel/UCqmF4ZZG766WYtFK614swaA?sub_confirmation=1",
 
-  email: "vithequynh00@gmail.com",
+  email: "zombieshusky62@gmail.com",
 };

@@ -1,6 +1,6 @@
 import { site } from "@/lib/site";
 
-const contactEmail = "vithequynh00@gmail.com";
+const contactEmail = "zombieshusky62@gmail.com";
 
 const gmailUrl =
   "https://mail.google.com/mail/?view=cm&fs=1" +

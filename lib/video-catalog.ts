@@ -68,42 +68,41 @@ export const videoDetails: Record<string, VideoDetails> = {
   },
 };
 
-// Public videos retrieved from the channel on September 25, 2026.
-// These entries work without a YouTube Data API key.
-export const manualVideos: Video[] = [
-  {
-    id: "w_cA9b1ds58",
-    title:
-      "Utah HIT by TORNADO — Rare Mountain Twister Strikes as Large Hail Falls (Latest Updates)",
-    thumbnail:
-      "https://i.ytimg.com/vi/w_cA9b1ds58/hqdefault.jpg",
-    publishedAt: "2026-09-23T23:00:32+00:00",
-  },
-  {
-    id: "aBSvKpeG4Bo",
-    title:
-      "MAJOR FLOOD EMERGENCY – Indiana & Ohio HIT as Floodwaters Block Roads (Latest Updates)",
-    thumbnail:
-      "https://i.ytimg.com/vi/aBSvKpeG4Bo/hqdefault.jpg",
-    publishedAt: "2026-09-23T03:24:12+00:00",
-  },
-  {
-    id: "C6mCGpgQ-WA",
-    title:
-      "UTAH & IDAHO HIT by Golf Ball Size Hail - Cars Damaged, Roads Flooded (Latest Updates)",
-    thumbnail:
-      "https://i.ytimg.com/vi/C6mCGpgQ-WA/hqdefault.jpg",
-    publishedAt: "2026-09-23T00:59:39+00:00",
-  },
-  {
-    id: "Zzre-WUPZpM",
-    title:
-      "SAKURAJIMA ERUPTS IN JAPAN – Massive Ash Cloud Towers Into the Sky (Latest Updates)",
-    thumbnail:
-      "https://i.ytimg.com/vi/Zzre-WUPZpM/hqdefault.jpg",
-    publishedAt: "2026-09-22T23:04:02+00:00",
-  },
-];
+// Videos now come directly from the configured YouTube channel.
+// Keep this array only as an optional emergency fallback for hand-picked videos.
+export const manualVideos: Video[] = [];
+
+function inferCategories(title: string): DisasterCategory[] {
+  const value = title.toLowerCase();
+  const inferred: DisasterCategory[] = [];
+
+  if (
+    /\b(storm|storms|hurricane|hurricanes|typhoon|typhoons|cyclone|cyclones|blizzard|hail|windstorm)\b/.test(
+      value
+    )
+  ) {
+    inferred.push("Storms");
+  }
+
+  if (/\b(flood|floods|flooding|flooded|flash flood)\b/.test(value)) {
+    inferred.push("Floods");
+  }
+
+  if (/\b(tornado|tornadoes|twister|twisters)\b/.test(value)) {
+    if (!inferred.includes("Storms")) inferred.push("Storms");
+    inferred.push("Tornadoes");
+  }
+
+  if (/\b(wildfire|wildfires|brush fire|forest fire)\b/.test(value)) {
+    inferred.push("Wildfires");
+  }
+
+  if (/\b(volcano|volcanoes|volcanic|eruption|erupts|erupted)\b/.test(value)) {
+    inferred.push("Volcanoes");
+  }
+
+  return inferred;
+}
 
 export function buildCatalog(videos: Video[]): CatalogVideo[] {
   const unique = new Map<string, Video>();
@@ -137,7 +136,7 @@ export function buildCatalog(videos: Video[]): CatalogVideo[] {
         thumbnail:
           video.thumbnail ||
           `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
-        categories: details?.categories ?? [],
+        categories: details?.categories ?? inferCategories(video.title),
         location: validLocation ? location : undefined,
       };
     })
